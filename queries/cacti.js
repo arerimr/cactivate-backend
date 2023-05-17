@@ -9,6 +9,16 @@ const getCacti = async () => {
     }
 }
 
+const getCactus = async (id) => {
+    try {
+        const cactus = await db.one("SELECT * FROM cacti WHERE id=$1", id)
+        return cactus;
+    } catch (e) {
+        return e;
+    }
+}
+
 module.exports = {
     getCacti,
+    getCactus
 }

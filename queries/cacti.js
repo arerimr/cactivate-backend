@@ -29,8 +29,20 @@ const updateCactus = async (id, cactus) => {
     }
 }
 
+const createCactus = async (newCactus) => {
+    const { name, image, scientific_name, origin, life_expectancy, flowers, max_height, fun_fact, care_instructions, edible } = newCactus
+
+    try {
+        const cactus = await db.one("INSERT INTRO cacti (name, image, scientific_name, origin, life_expectancy, flowers, max_height, fun_fact, care_instructions, edible) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *", [name, image, scientific_name, origin, life_expectancy, flowers, max_height, fun_fact, care_instructions, edible])
+        return cactus;
+    } catch (e) {
+        return e;
+    }
+}
+
 module.exports = {
     getCacti,
     getCactus,
-    updateCactus
+    updateCactus,
+    createCactus
 }

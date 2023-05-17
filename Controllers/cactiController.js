@@ -1,6 +1,6 @@
 const express = require('express');
 const cacti = express.Router()
-const { getCacti, getCactus, updateCactus } = require('../queries/cacti');
+const { getCacti, getCactus, updateCactus, createCactus } = require('../queries/cacti');
 
 cacti.get('/', async (req, res) => {
     const allCacti = await getCacti();
@@ -18,6 +18,12 @@ cacti.put('/:id', async (req, res) => {
     const { body } = req
     const updatedCactus = await updateCactus(id, body)
     updatedCactus ? res.status(200).json(updatedCactus) : res.status(500).json({ error: 'server error' })
+});
+
+cacti.post('/', async (req, res) => {
+    const newCactus = req.body
+    const createdCactus = await createCactus(newCactus)
+    createdCactus ? res.status(200).json(createdCactus) : res.status(500).json({ error: 'server error' })
 });
 
 module.exports = cacti;

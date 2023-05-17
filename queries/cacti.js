@@ -40,9 +40,19 @@ const createCactus = async (newCactus) => {
     }
 }
 
+const destroyCactus = async (id) => {
+    try {
+        const deletedCactus = await db.one("DELETE FROM cacti WHERE id=$1 RETURNING *", id)
+        return deletedCactus;
+    } catch (e) {
+        return e;
+    }
+}
+
 module.exports = {
     getCacti,
     getCactus,
     updateCactus,
-    createCactus
+    createCactus,
+    destroyCactus
 }
